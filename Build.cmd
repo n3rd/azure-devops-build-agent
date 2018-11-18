@@ -1,0 +1,1 @@
+PowerShell.exe .\Build.ps1 -serverCoreVersion 1803 -containerVersion 0.0.1 -build2017 -build2015
