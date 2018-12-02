@@ -7,7 +7,8 @@ SHELL ["powershell"]
 # install chocolatey
 ENV chocolateyUseWindowsCompression false
 ENV chocolateyVersion 0.10.11
-RUN Invoke-Expression ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+RUN Invoke-Expression ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')); `
+    Remove-Item -Path "$env:tmp\chocolatey" -Recurse -Force
 
 # install vsts agent
 RUN $ErrorActionPreference = 'Stop'; `
@@ -17,5 +18,6 @@ RUN $ErrorActionPreference = 'Stop'; `
 
 WORKDIR C:\BuildAgent
 COPY .\Start.* .\
+COPY .\chocolaty-clean.ps1 .\
 
 CMD ["Start.cmd"]
